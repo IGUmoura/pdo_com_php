@@ -82,14 +82,17 @@ $resultados = $executa->fetchAll(PDO::FETCH_OBJ);
 
             ?>
 
-                <form action="" method="POST">
+                <form action="altera_usuario.php" method="POST">
+
+                    <input type="hidden" name="cod_usuario" value="<?= $usuario->cod_usuario; ?>" />
 
                     <div class="row form-group">
                         <div class="col-3">
                             <label for="txt-nome">Nome:</label>
                         </div>
                         <div class="col-9">
-                            <input type="text" name="txt-nome" id="txt-nome" class="form-control" value="<?= $usuario->nome; ?>" >
+                            <input type="text" name="nome" id="txt-nome" class="form-control" value="<?= $usuario->nome; ?>" >
+                            <input type="hidden" name="modifica-nome" value="0" />
                         </div>
                     </div>
 
@@ -98,7 +101,8 @@ $resultados = $executa->fetchAll(PDO::FETCH_OBJ);
                             <label for="txt-email">E-Mail:</label>
                         </div>
                         <div class="col-9">
-                            <input type="email" name="txt-email" id="txt-email" class="form-control" value="<?= $usuario->email; ?>" >
+                            <input type="email" name="email" id="txt-email" class="form-control" value="<?= $usuario->email; ?>" >
+                            <input type="hidden" name="modifica-email" value="0" />
                         </div>
                     </div>
 
@@ -107,7 +111,8 @@ $resultados = $executa->fetchAll(PDO::FETCH_OBJ);
                             <label for="txt-senha">Senha:</label>
                         </div>
                         <div class="col-3">
-                            <input type="password" name="txt-senha" id="txt-senha" class="form-control" >
+                            <input type="password" name="senha" id="txt-senha" class="campo-senha form-control" >
+                            <input type="hidden" name="modifica-senha" value="0" />
                         </div>
                     </div>
 
@@ -116,41 +121,45 @@ $resultados = $executa->fetchAll(PDO::FETCH_OBJ);
                             <label for="txt-con-senha">Confirma Senha:</label>
                         </div>
                         <div class="col-3">
-                            <input type="password" name="txt-con-senha" id="txt-con-senha" class="form-control" >
+                            <input type="password" id="txt-con-senha" class="campo-senha form-control" >
                         </div>
                     </div>
 
                     <div class="row form-group">
                         <a href="javascript: void()" onclick="history.back()" class="btn btn-danger col-3 m-2">Cancelar</a>
-                        <input type="submit" name="bt-salvar" id="bt-salvar" class="btn btn-success col-3 m-2" value="Salvar" disabled/>
+                        <input type="submit" name="bt-salvar" id="bt-salvar" class="btn btn-success col-3 m-2" value="Salvar" disabled />
                     </div>
 
                 </form>
-
+                
                 <script>
-
-                   $$(document).ready(function() {
+                
+                $(document).ready(function() {
 
                     $('input').change(function() {
 
                         $('#bt-salvar').attr('disabled', false);
 
+                        $(this).next('input').val('1');
+
                     });
 
-                    $('#txt-con-senha').change(function() {
+                    $('.campo-senha').change(function() {
 
-                        if( $(this).val() != $('#txt-senha').val() || $(this).val() == '' || $('#txt-senha').val()== '' ) {
+                        if( $('#txt-con-senha').val() != $('#txt-senha').val() || $('#txt-con-senha').val() == '' || $('#txt-senha').val()== '' ) {
 
                             $(this).addClass('is-invalid');
-                            $('#txt-senha').addClass('is-invalid');
+                            $(this).removeClass('is-valid');
+                            $('.campo-senha').addClass('is-invalid');
+                            $('.campo-senha').removeClass('is-valid');
                             $('#bt-salvar').attr('disabled', true);
 
                         } else {
 
                             $(this).addClass('is-valid');
                             $(this).removeClass('is-invalid');
-                            $('#txt-senha').addClass('is-valid');
-                            $('#txt-senha').removeClass('is-invalid');
+                            $('.campo-senha').addClass('is-valid');
+                            $('.campo-senha').removeClass('is-invalid');
                             $('#bt-salvar').attr('disabled', false);
 
                         }
