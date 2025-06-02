@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PDO com PHP - Editar Usuário</title>
+    <title>PDO com PHP - Novo Usuário</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
 
@@ -21,20 +21,6 @@
     </style>
 </head>
 
-<?php
-
-include_once('conexao.php');
-
-$sql = "SELECT * FROM usuario_igormoura WHERE status LIKE 1";
-
-$executa = $conn->prepare($sql);
-
-$executa->execute();
-
-$resultados = $executa->fetchAll(PDO::FETCH_OBJ);
-
-?>
-
 <body>
     <div id="interface">
 
@@ -45,8 +31,8 @@ $resultados = $executa->fetchAll(PDO::FETCH_OBJ);
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
-                        <a class="nav-item nav-link active" href="http://192.168.1.25/TRILHAS4/igormoura/pdo_com_php/">Home<span class="sr-only">(Página atual)</span></a>
-                        <a class="nav-item nav-link" href="http://192.168.1.25/TRILHAS4/igormoura/pdo_com_php/usuarios.php">Usuários</a>
+                        <a class="nav-item nav-link active" href="http://192.168.1.35/TRILHAS4/igormoura/pdo_com_php/">Home<span class="sr-only">(Página atual)</span></a>
+                        <a class="nav-item nav-link" href="http://192.168.1.35/TRILHAS4/igormoura/pdo_com_php/usuarios.php">Usuários</a>
                         <a class="nav-item nav-link disabled" href="#">Preços</a>
                         <a class="nav-item nav-link disabled" href="#">Desativado</a>
                     </div>
@@ -56,7 +42,7 @@ $resultados = $executa->fetchAll(PDO::FETCH_OBJ);
 
         <main id="principal">
 
-            <h4 class="title-prinpipal text-center mt-4">Editar Usuário</h4>
+            <h4 class="title-prinpipal text-center mt-4">Novo Usuário</h4>
 
             <div class="jumbotron">
 
@@ -64,15 +50,15 @@ $resultados = $executa->fetchAll(PDO::FETCH_OBJ);
 
             include_once('conexao.php');
 
-            $id = $_GET['id'];
+            // $id = $_GET['id'];
 
-            $querySQL = "SELECT * FROM usuario_igor WHERE cod_usuario LIKE $id";
+            // $querySQL = "SELECT * FROM usuario_igormoura WHERE cod_usuario LIKE $id";
 
-            $executa = $conn->prepare($querySQL);
+            // $executa = $conn->prepare($querySQL);
 
-            $executa->execute();
+            // $executa->execute();
 
-            $usuario = $executa->fetch(PDO::FETCH_OBJ);
+            // $usuario = $executa->fetch(PDO::FETCH_OBJ);
 
             // echo '<pre>';
 
@@ -84,15 +70,13 @@ $resultados = $executa->fetchAll(PDO::FETCH_OBJ);
 
                 <form action="altera_usuario.php" method="POST">
 
-                    <input type="hidden" name="cod_usuario" value="<?= $usuario->cod_usuario; ?>" />
-
+               
                     <div class="row form-group">
                         <div class="col-3">
                             <label for="txt-nome">Nome:</label>
                         </div>
                         <div class="col-9">
-                            <input type="text" name="nome" id="txt-nome" class="form-control" value="<?= $usuario->nome; ?>" >
-                            <input type="hidden" name="modifica-nome" value="0" />
+                            <input type="text" name="nome" id="txt-nome" class="form-control" required />
                         </div>
                     </div>
 
@@ -101,8 +85,7 @@ $resultados = $executa->fetchAll(PDO::FETCH_OBJ);
                             <label for="txt-email">E-Mail:</label>
                         </div>
                         <div class="col-9">
-                            <input type="email" name="email" id="txt-email" class="form-control" value="<?= $usuario->email; ?>" >
-                            <input type="hidden" name="modifica-email" value="0" />
+                            <input type="email" name="email" id="txt-email" class="form-control" required />
                         </div>
                     </div>
 
@@ -111,8 +94,7 @@ $resultados = $executa->fetchAll(PDO::FETCH_OBJ);
                             <label for="txt-senha">Senha:</label>
                         </div>
                         <div class="col-3">
-                            <input type="password" name="senha" id="txt-senha" class="campo-senha form-control" >
-                            <input type="hidden" name="modifica-senha" value="0" />
+                            <input type="password" name="senha" id="txt-senha" class="campo-senha form-control" required />
                         </div>
                     </div>
 
@@ -121,17 +103,16 @@ $resultados = $executa->fetchAll(PDO::FETCH_OBJ);
                             <label for="txt-con-senha">Confirma Senha:</label>
                         </div>
                         <div class="col-3">
-                            <input type="password" id="txt-con-senha" class="campo-senha form-control" >
+                            <input type="password" id="txt-con-senha" class="campo-senha form-control" />
                         </div>
                     </div>
 
                     <div class="row form-group">
                         <a href="javascript: void()" onclick="history.back()" class="btn btn-danger col-3 m-2">Cancelar</a>
                         <input type="submit" name="bt-salvar" id="bt-salvar" class="btn btn-success col-3 m-2" value="Salvar" disabled />
-                    </div>
 
                 </form>
-                
+
                 <script>
                 
                 $(document).ready(function() {
@@ -166,6 +147,16 @@ $resultados = $executa->fetchAll(PDO::FETCH_OBJ);
 
                     });
 
+                    // NOVAS FUNCIONALIDADES
+                    $('#txt-nome').focus();
+                    $('#txt-nome').on('keyup', function() {
+                        $(this).val($(this).val().toUpperCase());
+                    });
+
+                    $('#txt-email').on('keyup', function() {
+                        $(this).val($(this).val().toLowerCase());
+                    });
+
                 });
 
                 </script>
@@ -173,7 +164,6 @@ $resultados = $executa->fetchAll(PDO::FETCH_OBJ);
             </div>
 
         </main>
-
 
     </div>
 </body>

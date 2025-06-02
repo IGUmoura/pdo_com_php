@@ -10,6 +10,6 @@ $exec = $conn->prepare($querySQL);
 
 $exec->execute(['0']);
 
-header('Location: http://192.168.1.249/TRILHAS4/igormoura/pdo_com_php/usuarios.php');
+header('Location: http://192.168.1.25/TRILHAS4/igormoura/pdo_com_php/usuarios.php');
 
 ?>
