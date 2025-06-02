@@ -45,8 +45,8 @@ $resultados = $executa->fetchAll(PDO::FETCH_OBJ);
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
-                        <a class="nav-item nav-link active" href="http://192.168.1.25/TRILHAS4/igormoura/pdo_com_php/">Home<span class="sr-only">(Página atual)</span></a>
-                        <a class="nav-item nav-link" href="http://192.168.1.25/TRILHAS4/igormoura/pdo_com_php/usuarios.php">Usuários</a>
+                        <a class="nav-item nav-link active" href="http://192.168.1.249/TRILHAS4/igormoura/pdo_com_php/">Home<span class="sr-only">(Página atual)</span></a>
+                        <a class="nav-item nav-link" href="http://192.168.1.249/TRILHAS4/igormoura/pdo_com_php/usuarios.php">Usuários</a>
                         <a class="nav-item nav-link disabled" href="#">Preços</a>
                         <a class="nav-item nav-link disabled" href="#">Desativado</a>
                     </div>
